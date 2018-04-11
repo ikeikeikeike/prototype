@@ -5,8 +5,8 @@ import (
 	"log"
 	"runtime"
 
-	"git.rarejob.com/rd/rjtrack/tracker/analyzer"
-	"git.rarejob.com/rd/rjtrack/tracker/util"
+	"github.com/ikeikeikeike/prototype/injector/analyzer"
+	"github.com/ikeikeikeike/prototype/injector/util"
 
 	einhorn "github.com/dcu/http-einhorn"
 	"github.com/facebookgo/inject"

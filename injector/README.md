@@ -27,12 +27,3 @@ https://github.com/mattes/migrate/tree/master/cli
 ```elixir
 $ cli create -dir ./migration -ext sql user_additions
 ```
-
-### Tools
-
-**Vim**
-
-Go development plugin for Vim
-
-- https://github.com/fatih/vim-go
-

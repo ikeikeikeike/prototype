@@ -8,26 +8,26 @@ import (
 )
 
 type (
-	// Encoder manifests encoder public interface
-	Encoder interface {
+	// Worker manifests encoder public interface
+	Worker interface {
 		Send(data string)
 	}
 
-	// flacEncoder works as background worker which encodes media stream to flac
-	flacEncoder struct {
+	// throwWorker works as background worker which encodes media stream to dash
+	throwWorker struct {
 		Env  *util.Env `inject:""`
 		data chan string
 	}
 )
 
-func (e *flacEncoder) Send(data string) {
+func (e *throwWorker) Send(data string) {
 	e.data <- data
 }
 
-func (e *flacEncoder) run() {
+func (e *throwWorker) run() {
 	defer func() {
 		if r := recover(); r != nil {
-			log.Println("[ERROR] A flacEncoder panic occured, this routine will restarted", r)
+			log.Println("[ERROR] A throwWorker panic occured, this routine will restarted", r)
 			go e.run()
 		}
 	}()
@@ -37,14 +37,13 @@ func (e *flacEncoder) run() {
 	}
 }
 
-func (e *flacEncoder) encode(data string) {
+func (e *throwWorker) encode(data string) {
 	log.Println("[INFO] successfuly encode: ", data)
-
 	pp.Println(e)
 }
 
-func bootFlacEncoder() *flacEncoder {
-	s := &flacEncoder{
+func bootThrowWorker() *throwWorker {
+	s := &throwWorker{
 		data: make(chan string, 100000),
 	}
 

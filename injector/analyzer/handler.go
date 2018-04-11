@@ -10,8 +10,8 @@ import (
 type (
 	// Analyzer is
 	Analyzer struct {
-		Env     *util.Env `inject:""`
-		Encoder Encoder   `inject:""`
+		Env    *util.Env `inject:""`
+		Worker Worker    `inject:""`
 	}
 )
 
@@ -19,7 +19,7 @@ type (
 func (hdr *Analyzer) Analyze(ctx echo.Context) (err error) {
 	token := "unko unko unko"
 
-	hdr.Encoder.Send(token)
+	hdr.Worker.Send(token)
 
 	return ctx.JSON(http.StatusOK, token)
 }

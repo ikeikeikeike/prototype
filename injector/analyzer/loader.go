@@ -13,7 +13,7 @@ func Inject(g *inject.Graph, e *echo.Echo) {
 
 	// inject
 	err := g.Provide(
-		&inject.Object{Value: bootFlacEncoder()},
+		&inject.Object{Value: bootThrowWorker()},
 		&inject.Object{Value: &ana},
 	)
 	if err != nil {
