@@ -26,12 +26,6 @@
   revision = "217e25fb96916cc60332e399c9aa63f5c422ceed"
 
 [[projects]]
-  name = "github.com/k0kubun/pp"
-  packages = ["."]
-  revision = "027a6d1765d673d337e687394dbe780dd64e2a1e"
-  version = "v2.3.0"
-
-[[projects]]
   name = "github.com/kelseyhightower/envconfig"
   packages = ["."]
   revision = "f611eb38b3875cc3bd991ca91c51d06446afa14c"
@@ -68,6 +62,12 @@
   packages = ["."]
   revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
   version = "v0.0.3"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/mattn/go-pipeline"
+  packages = ["."]
+  revision = "cfb87a531e2beb376fe3ce94a6dfef7956d33bc7"
 
 [[projects]]
   branch = "master"
@@ -111,6 +111,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "5d76cccf75145e2719f2ff9051ec68a5889559b7dfd35491991100afe2fd323a"
+  inputs-digest = "81b1a3aa3afbef933490b0d2d20d59718aba9af0644069e30c6b0d60a8a7c0da"
   solver-name = "gps-cdcl"
   solver-version = 1

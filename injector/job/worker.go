@@ -1,10 +1,12 @@
 package job
 
 import (
+	"log"
 	"time"
 
 	"github.com/ikeikeikeike/prototype/injector/util"
 	cor "github.com/ikeikeikeike/prototype/injector/util/container"
+	pipeline "github.com/mattn/go-pipeline"
 )
 
 type (
@@ -50,7 +52,13 @@ func (s *scheduler) Exit() {
 }
 
 func (s *scheduler) lift() {
-	s.data = append(s.data, "_")
+	out, err := fEncode()
+	if err != nil {
+		msg := "[ERROR] lift process failed"
+		log.Println(msg, err, out)
+	}
+
+	s.data = append(s.data, string(out))
 }
 
 func (s *scheduler) discharge() *cor.Baggage {
@@ -89,4 +97,12 @@ func bootScheduler() *scheduler {
 	go s.run()
 
 	return s
+}
+
+func fEncode() ([]byte, error) {
+	return pipeline.Output(
+		[]string{"git", "log", "--oneline"},
+		[]string{"grep", "-i", "initial"},
+		[]string{"wc", "-l"},
+	)
 }
