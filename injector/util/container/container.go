@@ -1,0 +1,77 @@
+package container
+
+import "sync"
+
+type container struct {
+	baggage chan *baggage
+	arg     interface{}
+	fun     interface{}
+}
+
+var defcontainer = &container{
+	baggage: make(chan *baggage),
+}
+
+func (c *container) reset() {
+	c.baggage = defcontainer.baggage
+	c.arg = defcontainer.arg
+	c.fun = defcontainer.fun
+}
+
+type containerPool struct {
+	sync.Pool
+}
+
+// Get container from sync.Pool
+func (cp *containerPool) Get() *container {
+	return cp.Pool.Get().(*container)
+}
+
+// Put container to sync.Pool
+func (cp *containerPool) Put(c *container) {
+	c.reset()
+	cp.Pool.Put(c)
+}
+
+var containers = &containerPool{
+	Pool: sync.Pool{New: func() interface{} {
+		return &container{baggage: make(chan *baggage)}
+	}},
+}
+
+type baggage struct {
+	item interface{}
+	err  error
+}
+
+var defbaggage = &baggage{}
+
+func (b *baggage) reset() {
+	b.item = defbaggage.item
+	b.err = defbaggage.err
+}
+
+type baggagePool struct {
+	sync.Pool
+}
+
+// Get baggage from sync.Pool
+func (bp *baggagePool) Get(item interface{}, err error) *baggage {
+	b := bp.Pool.Get().(*baggage)
+	b.item = item
+	b.err = err
+
+	return b
+}
+
+// Put baggage to sync.Pool after default to value
+func (bp *baggagePool) Put(b *baggage) {
+	b.reset()
+	bp.Pool.Put(b)
+}
+
+var baggages = &baggagePool{
+	Pool: sync.Pool{New: func() interface{} {
+		return &baggage{}
+	}},
+}
