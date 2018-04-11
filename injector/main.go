@@ -37,11 +37,14 @@ func main() {
 	db.SetMaxOpenConns(10)
 	db.SetMaxIdleConns(10)
 	defer db.Close()
+
+	// models
+	boil.DebugMode = !env.IsProd()
 	boil.SetDB(db)
 
 	// routing
 	e := route()
-	e.Server.Addr = env.RjtrackURI
+	e.Server.Addr = env.URI
 
 	// Injects dependecies
 	var g inject.Graph
