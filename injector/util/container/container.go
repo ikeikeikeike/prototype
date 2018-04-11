@@ -2,20 +2,17 @@ package container
 
 import "sync"
 
-type container struct {
-	baggage chan *baggage
-	arg     interface{}
-	fun     interface{}
+// Container TODO later
+type Container struct {
+	Baggage chan *Baggage
 }
 
-var defcontainer = &container{
-	baggage: make(chan *baggage),
+var defcontainer = &Container{
+	Baggage: make(chan *Baggage),
 }
 
-func (c *container) reset() {
-	c.baggage = defcontainer.baggage
-	c.arg = defcontainer.arg
-	c.fun = defcontainer.fun
+func (c *Container) reset() {
+	c.Baggage = defcontainer.Baggage
 }
 
 type containerPool struct {
@@ -23,32 +20,34 @@ type containerPool struct {
 }
 
 // Get container from sync.Pool
-func (cp *containerPool) Get() *container {
-	return cp.Pool.Get().(*container)
+func (cp *containerPool) Get() *Container {
+	return cp.Pool.Get().(*Container)
 }
 
 // Put container to sync.Pool
-func (cp *containerPool) Put(c *container) {
+func (cp *containerPool) Put(c *Container) {
 	c.reset()
 	cp.Pool.Put(c)
 }
 
-var containers = &containerPool{
+// Containers is TODO later
+var Containers = &containerPool{
 	Pool: sync.Pool{New: func() interface{} {
-		return &container{baggage: make(chan *baggage)}
+		return &Container{Baggage: make(chan *Baggage)}
 	}},
 }
 
-type baggage struct {
-	item interface{}
-	err  error
+// Baggage is TODO later
+type Baggage struct {
+	Item interface{}
+	Err  error
 }
 
-var defbaggage = &baggage{}
+var defbaggage = &Baggage{}
 
-func (b *baggage) reset() {
-	b.item = defbaggage.item
-	b.err = defbaggage.err
+func (b *Baggage) reset() {
+	b.Item = defbaggage.Item
+	b.Err = defbaggage.Err
 }
 
 type baggagePool struct {
@@ -56,22 +55,23 @@ type baggagePool struct {
 }
 
 // Get baggage from sync.Pool
-func (bp *baggagePool) Get(item interface{}, err error) *baggage {
-	b := bp.Pool.Get().(*baggage)
-	b.item = item
-	b.err = err
+func (bp *baggagePool) Get(item interface{}, err error) *Baggage {
+	b := bp.Pool.Get().(*Baggage)
+	b.Item = item
+	b.Err = err
 
 	return b
 }
 
 // Put baggage to sync.Pool after default to value
-func (bp *baggagePool) Put(b *baggage) {
+func (bp *baggagePool) Put(b *Baggage) {
 	b.reset()
 	bp.Pool.Put(b)
 }
 
-var baggages = &baggagePool{
+// Baggages is TODO later
+var Baggages = &baggagePool{
 	Pool: sync.Pool{New: func() interface{} {
-		return &baggage{}
+		return &Baggage{}
 	}},
 }

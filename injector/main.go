@@ -6,6 +6,7 @@ import (
 	"runtime"
 
 	"github.com/ikeikeikeike/prototype/injector/analyzer"
+	"github.com/ikeikeikeike/prototype/injector/job"
 	"github.com/ikeikeikeike/prototype/injector/util"
 
 	einhorn "github.com/dcu/http-einhorn"
@@ -36,6 +37,7 @@ func main() {
 		panic(fmt.Sprintf("[ERROR] Failed to process inject.Provide: %s", err))
 	}
 
+	job.Inject(&g, e)
 	analyzer.Inject(&g, e)
 
 	if err := g.Populate(); err != nil {
