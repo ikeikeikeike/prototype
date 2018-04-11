@@ -1,0 +1,21 @@
+test:
+    driver: mysql
+    open: root:@tcp(127.0.0.1:3306)/injector_test
+
+development:
+    driver: mysql
+    open: root:@tcp(127.0.0.1:3306)/injector_development
+
+production:
+    driver: mysql
+    open: $DATABASE_URL
+
+customimport:
+    driver: customdriver
+    open: customdriver open
+    import: github.com/custom/driver
+    dialect: mysql
+
+environment_variable_config:
+    driver: $DB_DRIVER
+    open: $DATABASE_URL

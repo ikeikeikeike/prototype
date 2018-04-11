@@ -16,16 +16,8 @@ $ dep ensure
 **Install migration tool**
 
 ```elixir
-$ go get -u github.com/mattes/migrate
-$ go get -u github.com/mattes/migrate/cli
+$ go get bitbucket.org/liamstask/goose/cmd/goose
 ```
 
 ##### Usage
 
-https://github.com/mattes/migrate/tree/master/cli
-
-**Create migration file**
-
-```elixir
-$ cli create -dir ./migration -ext sql user_additions
-```
