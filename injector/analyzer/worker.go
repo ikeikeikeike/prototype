@@ -4,7 +4,6 @@ import (
 	"log"
 
 	"github.com/ikeikeikeike/prototype/injector/util"
-	"github.com/k0kubun/pp"
 )
 
 type (
@@ -39,7 +38,6 @@ func (e *throwWorker) run() {
 
 func (e *throwWorker) encode(data string) {
 	log.Println("[INFO] successfuly encode: ", data)
-	pp.Println(e)
 }
 
 func bootThrowWorker() *throwWorker {

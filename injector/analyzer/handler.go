@@ -17,7 +17,7 @@ type (
 
 // Analyze is
 func (hdr *Analyzer) Analyze(ctx echo.Context) (err error) {
-	token := "unko unko unko"
+	token := "unko "
 
 	hdr.Worker.Send(token)
 
